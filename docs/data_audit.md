@@ -61,6 +61,26 @@ An earlier notebook version accidentally substituted July 10's DataFrame into bo
 
 **Conclusion:** the three additional samples pass the initial structural checks, and historical records are retrievable for the tested day in 2023. This does not establish continuous coverage between these dates, availability for every required fixture, or the earliest available history. Dataset selection remains provisional.
 
+## Timezone and daylight-saving exercise — 17 October 2026
+
+The notebook converts the July sample to `Europe/London`, showing a +01:00 offset relative to UTC, and retains 289 rows. A conversion back to UTC and equality check has not yet been recorded.
+
+The student also generated five-minute sequences between consecutive London calendar midnights, including the first midnight and excluding the next. These are synthetic expected timelines, not retrieved demand records.
+
+| London calendar day | Elapsed hours between local midnights | London timestamp count | UTC timestamp count | London timestamps unique with timezone? | UTC timestamps unique? | UTC spacing verification saved |
+|---|---:|---:|---:|---|---|---|
+| 30 March 2024 — ordinary day | 24 | 288 | 288 | Yes | Yes | All 287 gaps are five minutes |
+| 31 March 2024 — spring transition | 23 | 276 | 276 | Yes | Yes | All 275 gaps are five minutes |
+| 27 October 2024 — autumn transition | 25 | 300 | 300 | Yes | Yes | All 299 gaps are five minutes |
+
+Spring output skips local 01:00–01:55: 00:55+00:00 is followed by 02:00+01:00. Autumn output repeats the local 01:00–01:55 labels with different offsets: first +01:00, then +00:00. Those repeated clock labels represent different instants, so timezone-aware London timestamps remain unique as well as their UTC equivalents.
+
+Timezone conversion preserves the instants and the number of observations. It does not turn a 23-hour or 25-hour London calendar day into a 24-hour UTC calendar day: the converted sequence still covers the original London day's boundaries. The updated saved outputs confirm five-minute spacing throughout all three UTC sequences using difference value counts. The July round-trip equality check has not been recorded; this is a minor remaining evidence item, not a failure of the conversion shown.
+
+Session stopping point: the timezone learning exercise is complete. Next session, apply the expected timelines to actual API records on the spring and autumn transition dates, using London-midnight boundaries converted to UTC. Actual transition-day demand retrieval remains unverified, and the measurement-definition questions remain open.
+
+Implication: expect 276, 288, or 300 five-minute observations for complete London calendar days under this boundary convention. A complete UTC calendar day has 288 such timestamps. Do not discard repeated autumn clock labels after removing timezone information, and do not confuse these synthetic checks with validation of actual API data on transition dates.
+
 ## Documentation findings
 
 | Topic | Finding | Source / confidence |
