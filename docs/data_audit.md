@@ -105,6 +105,8 @@ The legacy API guide [S3] links rolling system demand to FUELINST and lists `VD`
 
 ## Open checks before dataset selection
 
+Fixture research update: [the pre-tournament inventory](fixture_inventory.md) and [CSV](../data/england_fixtures_pre_euro_2024.csv) now identify 12 completed England men's senior fixtures within 1 January 2023–31 May 2024, with official scheduled-time sources and checked UTC conversions. Two conflicting official GMT/BST labels are documented. Per-fixture demand coverage and actual match chronology remain unchecked; this is not a completed feasibility gate for match-aware training.
+
 1. Resolve whether current endpoint values are snapshots or five-minute averages, and how timestamps relate to those measurements.
 2. Verify retrieval and timestamp completeness for all seven Euro 2024 England matches, comparison periods, and candidate pre-tournament training dates.
 3. Establish historical coverage, maximum request range, boundary behaviour, revisions, and any documented quality flags or sentinel values.
