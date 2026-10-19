@@ -3,6 +3,8 @@
 Research date: 17 October 2026  
 Scope: England men's senior internationals played from 1 January 2023 through 31 May 2024, inclusive.
 
+19 October update: half-hour demand coverage is now verified for all 12 fixtures. The combined inventory also includes two June warm-ups and seven tournament fixtures, all covered. See [the final dataset handoff](finalized_dataset.md) and `data/processed/final_fixture_coverage.csv`; the original feasibility notes below are historical.
+
 ## Result
 
 The [official England legacy register](https://www.englandfootball.com/england/mens-senior-team/Legacy) lists 12 matches in this period: ten in 2023 and two in 2024. The inventory contains eight EURO qualifiers and four friendlies, with seven home and five away fixtures.

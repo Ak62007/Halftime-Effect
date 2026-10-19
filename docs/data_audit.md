@@ -1,8 +1,14 @@
 # Initial demand-data audit
 
 Date: 16 October 2026  
-Updated: 17 October 2026  
-Status: Preliminary feasibility audit; dataset selection is not final.
+Updated: 19 October 2026  
+Status: Core dataset finalized on 19 October 2026. See [the final dataset contract and handoff](finalized_dataset.md). Earlier sections below preserve the five-minute feasibility history; their provisional decisions are superseded by the finalized half-hourly core.
+
+## Finalization gate — 19 October 2026
+
+The mentor completed acquisition and validation at the student's explicit request to protect project time. The selected target is NESO forecast-performance `Demand_Outturn`, at half-hour resolution. All 27,742 intervals across 578 local dates (1 January 2023–31 July 2024) are present, with no duplicate UTC timestamps or null primary demand. All 21 inventoried fixture days are covered, including seven tournament holdouts. Source clocks, period ends, DST, forecast issue availability, regional holidays, retrospective weather, and target separation were checked. Six automated tests pass.
+
+Outputs, frozen splits, rebuild instructions, cautions and the next EDA task are documented in [finalized_dataset.md](finalized_dataset.md). Detailed checks and snapshot hashes are in `data/processed/final_data_checks.json` and `data/processed/data_manifest.json`. The five-minute summary endpoint is not used for the core. No statistical event findings have been generated.
 
 ## Purpose and scope
 
@@ -82,6 +88,8 @@ Session stopping point: the timezone learning exercise is complete. Next session
 Implication: expect 276, 288, or 300 five-minute observations for complete London calendar days under this boundary convention. A complete UTC calendar day has 288 such timestamps. Do not discard repeated autumn clock labels after removing timezone information, and do not confuse these synthetic checks with validation of actual API data on transition dates.
 
 ## Documentation findings
+
+**19 October update:** see [measurement-definition research](measurement_definition_research.md). Current documentation supports five-minute averaging for FUELINST, but precise interval alignment remains unresolved. The existing summary endpoint is documented as downsampled and intended for visualisation; the previous audits establish properties of returned summary records, not raw-source completeness. Long baseline acquisition is deferred pending one raw-dataset inspection or a return to the half-hourly core.
 
 | Topic | Finding | Source / confidence |
 |---|---|---|

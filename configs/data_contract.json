@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "primary_source": "NESO forecast performance Demand_Outturn",
+  "start_date": "2023-01-01",
+  "end_date_inclusive": "2024-07-31",
+  "timezone": "Europe/London",
+  "frequency": "30min",
+  "train_end_inclusive": "2024-02-29",
+  "validation_end_inclusive": "2024-05-31",
+  "event_holdout_start": "2024-06-16",
+  "event_holdout_end_inclusive": "2024-07-15",
+  "forecast_issue_local_hour": 10,
+  "sources": {
+    "neso/forecast_performance.csv": "https://api.neso.energy/dataset/5281b494-5566-42dd-bf1a-9ce38642fabf/resource/08e41551-80f8-4e28-a416-ea473a695db9/download/1b-incentive.csv",
+    "neso/historic_2023.csv": "https://api.neso.energy/dataset/8f2fe0af-871c-488d-8bad-960426f24601/resource/bf5ab335-9b40-4ea4-b93a-ab4af7bce003/download/demanddata_2023.csv",
+    "neso/historic_2024.csv": "https://api.neso.energy/dataset/8f2fe0af-871c-488d-8bad-960426f24601/resource/f6d02c0f-957b-48cb-82ee-09003f2ba759/download/demanddata_2024.csv",
+    "weather/era5_temperature.json": "https://archive-api.open-meteo.com/v1/archive?latitude=51.5074,53.4808,52.4862&longitude=-0.1278,-2.2426,-1.8904&start_date=2023-01-01&end_date=2025-01-01&hourly=temperature_2m&models=era5&timezone=UTC",
+    "calendar/bank_holidays.json": "https://www.gov.uk/bank-holidays.json"
+  }
+}
