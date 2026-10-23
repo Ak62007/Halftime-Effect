@@ -1,5 +1,14 @@
 # Research log
 
+## 23 October 2026 — Consolidate descriptive EDA
+
+- **Work:** the student plotted the continuous training series, local daily means, a February week, seven weekday mean profiles, Monday/Friday/Saturday quartile bands, and winter/summer Monday profiles.
+- **Correction:** London time must be derived in the parent DataFrame before selecting baseline observations. Earlier UTC-based profile results were superseded; initial exploratory hypotheses remain preserved.
+- **Evidence:** corrected Monday IQR is widest at 17:00 (11,833 MW) and narrowest at 23:00 (2,945 MW). At 17:00, summer Monday IQR is 1,747.25 MW and winter Monday IQR is 4,299.75 MW. Seasonal groups have 12 and 22 eligible Monday dates respectively.
+- **Interpretation:** seasonal mixing contributes to pooled spread; observed calendar associations do not isolate causal mechanisms. IQR bands describe observations, not confidence or prediction intervals.
+- **Artifact:** `analyses/01_demand_eda_analysis.md` documents each step and embeds eight figures exported from the saved notebook. Numerical findings were cross-checked against finalized development data.
+- **Next:** guided autocorrelation analysis on the complete training timeline, then a seasonal naïve benchmark. No ACF, fitted model, or event-effect results have been generated yet.
+
 ## 19 October 2026 — Freeze the core dataset
 
 - **Question:** can the project move beyond feasibility without relying on an unverified five-minute summary transformation?
