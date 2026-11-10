@@ -1,7 +1,8 @@
 # Match-aware forecasting — Stage 1 data expansion
 
-Status: **complete and tested**  
-Branch: `match-aware-forecast`  
+Status: **complete and tested**
+
+Branch: `match-aware-forecast`
 Euro 2024 demand outcomes opened for model selection: **no**
 
 ## Purpose

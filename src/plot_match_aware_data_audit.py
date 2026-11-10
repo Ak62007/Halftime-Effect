@@ -128,4 +128,3 @@ fig.suptitle(
 fig.tight_layout(rect=[0, 0, 1, 0.96])
 fig.savefig(FIGURES / "01_extended_fixture_inventory.png", dpi=300, bbox_inches="tight")
 plt.close(fig)
-

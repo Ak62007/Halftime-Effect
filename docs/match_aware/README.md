@@ -1,8 +1,11 @@
 # Match-aware demand forecasting — final report index
 
-Branch: `match-aware-forecast`  
-Core project artifacts overwritten: **no**  
-EURO 2024 holdout opened: **yes, once, after specification lock**  
+Branch: `match-aware-forecast`
+
+Core project artifacts overwritten: **no**
+
+EURO 2024 holdout opened: **yes, once, after specification lock**
+
 Model changed after holdout: **no**
 
 ## Project question
