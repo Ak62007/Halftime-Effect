@@ -46,6 +46,22 @@ class MatchAwareModelSelectionTests(unittest.TestCase):
         )
         self.assertFalse(predictions["match_id"].str.contains("2024").any())
 
+    def test_holdout_evaluation_uses_seven_matches_without_refitting(self):
+        evaluation = json.loads(
+            (MODEL_DIR / "euro_2024_holdout_evaluation.json").read_text()
+        )
+        self.assertEqual(evaluation["holdout_matches"], 7)
+        self.assertEqual(evaluation["historical_training_matches"], 12)
+        self.assertFalse(evaluation["model_changed_after_holdout"])
+
+    def test_holdout_coefficients_equal_locked_selection_coefficients(self):
+        evaluation = json.loads(
+            (MODEL_DIR / "euro_2024_holdout_evaluation.json").read_text()
+        )
+        locked = self.tournament["candidates"]["four_window"]["final_coefficients"]
+        for feature, coefficient in evaluation["coefficients_mw"].items():
+            self.assertAlmostEqual(coefficient, locked[feature]["estimate_mw"])
+
 
 if __name__ == "__main__":
     unittest.main()
