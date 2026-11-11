@@ -60,6 +60,25 @@ class EventBlindV2ModelTests(unittest.TestCase):
         self.assertFalse(self.lock["residual_independence_achieved"])
         self.assertFalse(self.lock["constant_conditional_variance_achieved"])
 
+    def test_final_evaluation_matches_locked_dates_and_was_not_retuned(self):
+        evaluation = json.loads((MODEL_DIR / "final_test_evaluation.json").read_text())
+        self.assertEqual(evaluation["date_range"], ["2025-01-01", "2025-03-31"])
+        self.assertEqual(evaluation["n"], 4318)
+        self.assertFalse(evaluation["model_changed_after_opening"])
+        self.assertIn("0c3d4b9", evaluation["evaluation_status"])
+
+    def test_locked_v2_improves_both_research_benchmarks_on_final_test(self):
+        evaluation = json.loads((MODEL_DIR / "final_test_evaluation.json").read_text())
+        metrics = evaluation["point_metrics"]
+        self.assertLess(
+            metrics["v2_locked"]["mae_mw"],
+            metrics["v1_calendar_weekly_lag"]["mae_mw"],
+        )
+        self.assertLess(
+            metrics["v2_locked"]["mae_mw"],
+            metrics["weekly_seasonal_naive"]["mae_mw"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

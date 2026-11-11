@@ -48,10 +48,11 @@ CANDIDATES = [
 ]
 
 
-def load_development() -> pd.DataFrame:
+def load_v2_data(include_final_test: bool = False) -> pd.DataFrame:
     data = pd.read_csv(DATA_DIR / "demand_v2.csv")
-    # Enforce the unopened boundary before constructing outcomes or metrics.
-    data = data.loc[~data["is_final_test"]].copy()
+    if not include_final_test:
+        # Enforce the unopened boundary before constructing outcomes or metrics.
+        data = data.loc[~data["is_final_test"]].copy()
     data["timestamp_utc"] = pd.to_datetime(data["timestamp_utc"], utc=True)
     data["timestamp_london"] = data["timestamp_utc"].dt.tz_convert(
         CONFIG["timezone"]
@@ -80,6 +81,10 @@ def load_development() -> pd.DataFrame:
     data["daily_change_2_to_3"] = data["lag_96"] - data["lag_144"]
     data["weekly_change_1_to_2"] = data["lag_336"] - data["lag_672"]
     return data
+
+
+def load_development() -> pd.DataFrame:
+    return load_v2_data(include_final_test=False)
 
 
 def annual_phase(data: pd.DataFrame) -> np.ndarray:
