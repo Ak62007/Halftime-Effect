@@ -1,38 +1,43 @@
 # The Halftime Effect
 
-This project studies whether scheduled England football matches add useful information
-to a half-hourly Great Britain electricity-demand forecast. It first develops an
-event-blind day-ahead baseline, then evaluates whether a schedule-aware correction adds
-value around England matches.
+This repository studies whether scheduled England football matches improve forecasts
+of half-hourly Great Britain electricity demand.
 
-The schedule-aware extension of the third-generation baseline is on the
-`match-aware-v3` branch. Start with the [match-aware v3 report](docs/match_aware_v3/README.md).
-The [event-blind v3 report](docs/event_blind_v3/README.md) links the exogenous-data
-audit, development experiments and untouched 2026 final test. The
-[event-blind v2 report](docs/event_blind_v2/README.md) and earlier
-[match-aware forecasting report](docs/match_aware/README.md) document the preceding
-experiments.
+## Final presentation model
 
-The locked event-blind v3 model achieves 982 MW MAE on untouched January–March 2026,
-39.0% better than the refit v2 specification and 60.1% better than weekly seasonal
-naive. Its errors still show serial dependence and changing conditional variance, and
-its locked intervals under-cover. The earlier tournament correction improved aggregate EURO 2024 MAE by
-6.8%, but did not establish a robust halftime-aware forecast or a causal effect.
+The final analysis is deliberately restricted to methods named in the supplied course
+specification:
 
-Using v3 as the tournament baseline lowers retrospective EURO 2024 event-window MAE to
-761 MW before any schedule correction. The locked schedule-shape layer improves the
-scheduled-play and halftime windows, but slightly worsens aggregate event-window MAE to
-772 MW. A 19-match forward refit is therefore an unconfirmed deployment model, not a
-validated performance claim.
+1. weekly seasonal naive;
+2. seasonal regression with weekly and annual Fourier terms;
+3. ARMA(2,1) errors as a tested but rejected extension;
+4. scheduled-match and halftime flags as an unsuccessful exploratory extension;
+5. ARCH diagnostics, without forcing GARCH into the final point forecast.
 
-Run the complete integrity suite with:
+Start with the [syllabus-aligned final report](docs/syllabus_aligned/README.md). The
+[alignment audit](docs/syllabus_alignment_audit.md) records which earlier experimental
+methods were removed from the presentation-facing branch.
+
+## Headline results
+
+- Weekly seasonal naive ordinary-validation MAE: **1,933 MW**.
+- Selected Fourier seasonal regression MAE: **1,483 MW**.
+- Fourier regression with ARMA errors: **1,484 MW**, so it was rejected.
+- During the seven EURO 2024 scheduled-match windows, Fourier regression MAE is
+  **759 MW**; adding historical match flags worsens it to **948 MW**.
+- During the halftime proxy, Fourier regression MAE is **812 MW**; match flags worsen
+  it to **967 MW**.
+
+The final conclusion is intentionally modest: Fourier seasonal regression improves the
+weekly benchmark, while the available historical matches do not support a reliable
+match-aware forecast. The work is predictive and does not establish a causal football
+effect.
+
+## Reproduction
 
 ```bash
+.venv/bin/python src/build_forecast_dataset.py
+.venv/bin/python src/evaluate_syllabus_aligned_models.py
+.venv/bin/python src/plot_syllabus_aligned_results.py
 .venv/bin/python -m unittest discover -s tests -v
 ```
-
-The v3 reports are indexed in [docs/event_blind_v3/README.md](docs/event_blind_v3/README.md);
-the v2 reproduction order is documented in
-[docs/event_blind_v2/README.md](docs/event_blind_v2/README.md#reproduction-order), and the
-match-aware pipeline remains documented in
-[docs/match_aware/README.md](docs/match_aware/README.md#reproduction-order).

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "purpose": "Presentation-facing model restricted to methods named in the project syllabus",
+  "timezone": "Europe/London",
+  "forecast_issue_local_hour": 10,
+  "development_training_end": "2024-02-28",
+  "ordinary_validation_start": "2024-03-01",
+  "ordinary_validation_end": "2024-05-31",
+  "euro_2024_training_end": "2024-06-14",
+  "euro_2024_start": "2024-06-16",
+  "euro_2024_end": "2024-07-14",
+  "weekly_fourier_order": 20,
+  "annual_fourier_order": 4,
+  "arma_order": [2, 0, 1],
+  "approved_models": [
+    "weekly seasonal naive",
+    "seasonal regression with Fourier terms and ARMA errors",
+    "same seasonal model plus pre-scheduled match flags"
+  ]
+}
