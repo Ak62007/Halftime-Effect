@@ -7,6 +7,15 @@ explain the complete research workflow without using internal branch names or so
 version labels as the narrative. It will show how the question, data, diagnostics and
 forecasting models developed, then end with the football-window result and its limits.
 
+## Presentation artifact
+
+- Editable Canva deck: https://www.canva.com/d/eOkW1f8IU7K2RP5
+- View-only Canva deck: https://www.canva.com/d/onoKx6Ex99ayiHr
+- Canva design ID: `DAHapb-ZY90`
+- Format: 17 slides, with verified project figures and results.
+- Supporting speaker script, team allocation, learning guide, model equations and
+  teacher question bank are stored beside this plan in `docs/presentation/`.
+
 ## Corrected model scope
 
 ### Retain
