@@ -40,10 +40,11 @@ CANDIDATES = [
 ]
 
 
-def load_development() -> pd.DataFrame:
+def load_v3_data(include_final_test: bool = False) -> pd.DataFrame:
     data = pd.read_csv(DATA_DIR / "demand_v3.csv")
-    # This is the hard unopened boundary. No final outcome or metric survives load.
-    data = data.loc[~data["is_final_test"]].copy()
+    if not include_final_test:
+        # This is the hard unopened boundary. No final outcome or metric survives load.
+        data = data.loc[~data["is_final_test"]].copy()
     data["timestamp_utc"] = pd.to_datetime(data["timestamp_utc"], utc=True)
     data["timestamp_london"] = data["timestamp_utc"].dt.tz_convert(CONFIG["timezone"])
     data["interval_end_utc"] = pd.to_datetime(data["interval_end_utc"], utc=True)
@@ -94,6 +95,10 @@ def load_development() -> pd.DataFrame:
     if data[temperatures].isna().any().any():
         raise ValueError("Development weather features are incomplete")
     return data
+
+
+def load_development() -> pd.DataFrame:
+    return load_v3_data(include_final_test=False)
 
 
 def annual_phase(data: pd.DataFrame) -> np.ndarray:
