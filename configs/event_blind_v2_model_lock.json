@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "locked_before_final_test": true,
+  "final_test_start": "2025-01-01",
+  "final_test_end_inclusive": "2025-03-31",
+  "final_training_end_inclusive": "2024-12-30",
+  "point_forecast": {
+    "base_model": "ridge_multilag_level_recent730_a0.1",
+    "training_window_days": 730,
+    "target_scale": "level",
+    "ridge_alpha": 0.1,
+    "direct_residual_model": "direct_residual_ridge_a0",
+    "direct_residual_alpha": 0.0
+  },
+  "interval_model": {
+    "name": "Gaussian GARCH(1,1)",
+    "use": "conditional forecast variance only",
+    "changes_point_forecast": false
+  },
+  "rejected_candidates": {
+    "full_daily_sarimax": "period-48 seasonal likelihood failed to converge in the pre-specified feasibility fit",
+    "recursive_ar_error": "improved the base model but was inferior to the direct multi-horizon residual correction",
+    "log_target": "inferior rolling-origin MAE to the level target"
+  },
+  "development_mean_fold_mae_mw": 1348.267918712245,
+  "development_mean_fold_rmse_mw": 1746.3337868908336,
+  "development_worst_fold_mae_mw": 1518.2427093397043,
+  "development_mean_80_interval_coverage": 0.8046392179762419,
+  "development_mean_95_interval_coverage": 0.9358426080847396,
+  "residual_independence_achieved": false,
+  "constant_conditional_variance_achieved": false,
+  "euro_2024_used_for_selection": false,
+  "final_test_opened": false
+}

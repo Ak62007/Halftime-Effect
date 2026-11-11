@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "purpose": "Leakage-safe event-blind v3 forecast with archived ex-ante weather, calendar and embedded-generation inputs",
+  "timezone": "Europe/London",
+  "frequency": "30min",
+  "forecast_issue_local_hour": 10,
+  "source_start_date": "2021-04-01",
+  "development_end_inclusive": "2025-12-31",
+  "previously_opened_period": ["2025-01-01", "2025-03-31"],
+  "final_test_start": "2026-01-01",
+  "final_test_end_inclusive": "2026-03-31",
+  "selection_metric": "mean rolling-origin fold MAE with worst-fold MAE as a stability guardrail",
+  "validation_folds": [
+    {
+      "name": "autumn_2023",
+      "train_end_inclusive": "2023-08-30",
+      "validation_start": "2023-09-01",
+      "validation_end_inclusive": "2023-10-31"
+    },
+    {
+      "name": "winter_2023_24",
+      "train_end_inclusive": "2023-12-30",
+      "validation_start": "2024-01-01",
+      "validation_end_inclusive": "2024-02-29"
+    },
+    {
+      "name": "spring_2024",
+      "train_end_inclusive": "2024-02-28",
+      "validation_start": "2024-03-01",
+      "validation_end_inclusive": "2024-05-31"
+    },
+    {
+      "name": "late_2024",
+      "train_end_inclusive": "2024-09-29",
+      "validation_start": "2024-10-01",
+      "validation_end_inclusive": "2024-12-31"
+    },
+    {
+      "name": "spring_2025",
+      "train_end_inclusive": "2025-03-30",
+      "validation_start": "2025-04-01",
+      "validation_end_inclusive": "2025-06-30"
+    },
+    {
+      "name": "summer_2025",
+      "train_end_inclusive": "2025-06-29",
+      "validation_start": "2025-07-01",
+      "validation_end_inclusive": "2025-09-30"
+    },
+    {
+      "name": "late_2025",
+      "train_end_inclusive": "2025-09-29",
+      "validation_start": "2025-10-01",
+      "validation_end_inclusive": "2025-12-31"
+    }
+  ],
+  "fixed_safe_lags_half_hours": [96, 144, 192, 240, 288, 336, 672, 1008, 1344],
+  "weather": {
+    "provider": "Open-Meteo Previous Runs API",
+    "model": "jma_seamless",
+    "selected_lead": "temperature_2m_previous_day2",
+    "selected_lead_hours": 48,
+    "locations": [
+      {"name": "london", "latitude": 51.5074, "longitude": -0.1278},
+      {"name": "manchester", "latitude": 53.4808, "longitude": -2.2426},
+      {"name": "birmingham", "latitude": 52.4862, "longitude": -1.8904}
+    ]
+  },
+  "neso_embedded_archive_package": "embedded-wind-and-solar-forecasts",
+  "embedded_issue_query_utc_hours": [5, 11],
+  "candidate_stages": [
+    "feature_ablation_ridge",
+    "recursive_ar_residual",
+    "direct_multi_horizon_residual",
+    "lightweight_arma_errors",
+    "garch_conditional_variance"
+  ],
+  "final_test_opened": false,
+  "euro_2024_used_for_selection": false
+}
