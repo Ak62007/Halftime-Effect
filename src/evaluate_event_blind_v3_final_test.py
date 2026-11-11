@@ -141,8 +141,28 @@ def main() -> None:
         "weekly_seasonal_naive": metrics(actual, evaluation["lag_336"].to_numpy()),
         "v2_locked_spec_refit": metrics(actual, evaluation["v2_forecast_mw"].to_numpy()),
         "v3_spline_base": metrics(actual, evaluation["base_forecast_mw"].to_numpy()),
+        "v3_direct_ridge": metrics(
+            actual, evaluation["direct_ridge_forecast_mw"].to_numpy()
+        ),
+        "v3_direct_hgb": metrics(
+            actual, evaluation["direct_hgb_forecast_mw"].to_numpy()
+        ),
         "v3_locked": metrics(actual, evaluation["v3_forecast_mw"].to_numpy()),
         "neso_day_ahead_available_rows": metrics(
+            actual[neso_available],
+            evaluation.loc[neso_available, "neso_day_ahead_forecast_mw"].to_numpy(),
+        ),
+    }
+    common_available_metrics = {
+        "v2": metrics(
+            actual[neso_available],
+            evaluation.loc[neso_available, "v2_forecast_mw"].to_numpy(),
+        ),
+        "v3": metrics(
+            actual[neso_available],
+            evaluation.loc[neso_available, "v3_forecast_mw"].to_numpy(),
+        ),
+        "neso": metrics(
             actual[neso_available],
             evaluation.loc[neso_available, "neso_day_ahead_forecast_mw"].to_numpy(),
         ),
@@ -186,6 +206,7 @@ def main() -> None:
         "training_rows": int(len(training)),
         "base_fit_metadata": base_metadata,
         "point_metrics": point_metrics,
+        "common_neso_available_metrics": common_available_metrics,
         "month_metrics": month_metrics,
         "interval_metrics": interval_metrics,
         "residual_diagnostics": residual_diagnostics(

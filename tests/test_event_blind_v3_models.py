@@ -70,6 +70,23 @@ class EventBlindV3ModelTests(unittest.TestCase):
             LOCK["research_point_forecast"]["uses_neso_demand_forecast_as_input"]
         )
 
+    def test_final_evaluation_uses_locked_period_without_retuning(self):
+        evaluation = json.loads((MODEL_DIR / "final_test_evaluation.json").read_text())
+        self.assertEqual(evaluation["date_range"], ["2026-01-01", "2026-03-31"])
+        self.assertEqual(evaluation["n"], 4318)
+        self.assertFalse(evaluation["model_changed_after_opening"])
+        self.assertIn("adc6f74", evaluation["evaluation_status"])
+
+    def test_final_v3_improves_v2_and_weekly_naive(self):
+        evaluation = json.loads((MODEL_DIR / "final_test_evaluation.json").read_text())
+        point = evaluation["point_metrics"]
+        self.assertLess(
+            point["v3_locked"]["mae_mw"], point["v2_locked_spec_refit"]["mae_mw"]
+        )
+        self.assertLess(
+            point["v3_locked"]["mae_mw"], point["weekly_seasonal_naive"]["mae_mw"]
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
