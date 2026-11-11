@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "status": "forward deployment refit; not evaluated on an untouched tournament",
+  "event_blind_baseline": "contemporaneously refitted locked event-blind v3 point model",
+  "schedule_correction": {
+    "name": "shape_four_window",
+    "estimation": "global overlap coefficients with fixture-specific intercept and linear-drift nuisance terms in training only",
+    "training_editions": [
+      "UEFA EURO 2020",
+      "FIFA World Cup 2022",
+      "UEFA EURO 2024"
+    ],
+    "training_matches": 19,
+    "coefficients_mw": {
+      "pregame_overlap_fraction": 31.407766600180263,
+      "scheduled_match_overlap_fraction": -530.1610938819608,
+      "halftime_proxy_overlap_fraction": 281.8442890767505,
+      "postmatch_overlap_fraction": -366.106853211311
+    }
+  },
+  "interpretation": "forecast adjustment conditional on the event-blind baseline; not a causal football effect",
+  "future_untouched_tournament_required": true
+}

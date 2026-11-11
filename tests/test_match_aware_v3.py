@@ -42,6 +42,43 @@ class MatchAwareV3Tests(unittest.TestCase):
             ]
             self.assertAlmostEqual(value, observed)
 
+    def test_euro_2024_is_retrospective_and_not_retuned(self):
+        result = json.loads(
+            (OUT / "euro_2024_retrospective_evaluation.json").read_text()
+        )
+        self.assertFalse(result["new_holdout_claim"])
+        self.assertFalse(result["model_changed_after_locked_rerun"])
+        self.assertEqual(result["matches"], 7)
+        self.assertTrue(result["future_untouched_tournament_required"])
+
+    def test_euro_2024_halftime_improves_but_primary_window_does_not(self):
+        result = json.loads(
+            (OUT / "euro_2024_retrospective_evaluation.json").read_text()
+        )
+        primary = result["scope_metrics"]["event_window_primary"]
+        halftime = result["scope_metrics"]["halftime_proxy_window"]
+        self.assertGreater(
+            primary["v3_match_aware"]["mae_mw"],
+            primary["v3_event_blind"]["mae_mw"],
+        )
+        self.assertLess(
+            halftime["v3_match_aware"]["mae_mw"],
+            halftime["v3_event_blind"]["mae_mw"],
+        )
+
+    def test_forward_refit_uses_all_nineteen_matches_without_claiming_evaluation(self):
+        result = json.loads((OUT / "forward_model_refit.json").read_text())
+        forward = json.loads(
+            (ROOT / "configs/match_aware_v3_forward_model.json").read_text()
+        )
+        self.assertEqual(result["training_matches"], 19)
+        self.assertTrue(result["future_untouched_tournament_required"])
+        self.assertIn("not evaluated", forward["status"])
+        for feature, value in forward["schedule_correction"][
+            "coefficients_mw"
+        ].items():
+            self.assertAlmostEqual(value, result["coefficients"][feature]["estimate_mw"])
+
 
 if __name__ == "__main__":
     unittest.main()
