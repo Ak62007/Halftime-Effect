@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "purpose": "Use the locked event-blind v3 architecture as the baseline for schedule-aware England tournament forecasts",
+  "timezone": "Europe/London",
+  "forecast_issue_local_hour": 10,
+  "event_blind_lock": "configs/event_blind_v3_model_lock.json",
+  "event_blind_training_window_days": 730,
+  "event_blind_refit_rule": "fit once per tournament edition through two local dates before its first England fixture",
+  "historical_selection_editions": [
+    "UEFA EURO 2020",
+    "FIFA World Cup 2022"
+  ],
+  "retrospective_diagnostic_edition": "UEFA EURO 2024",
+  "retrospective_diagnostic_status": "previously opened; not a new holdout",
+  "correction_validation": "leave one complete historical tournament edition out",
+  "primary_metric": "pooled MAE over the union of pregame, scheduled-match and postmatch windows",
+  "future_confirmation_required": true,
+  "event_windows_minutes": {
+    "pregame": [-120, 0],
+    "scheduled_match": [0, 105],
+    "halftime_proxy": [45, 75],
+    "postmatch": [105, 165]
+  }
+}
