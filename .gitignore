@@ -17,3 +17,6 @@ __pycache__/
 
 data/raw/
 data/processed/
+
+# Temporary render and quality-assurance artifacts
+tmp/
